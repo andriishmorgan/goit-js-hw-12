@@ -9,11 +9,7 @@ const gallery = document.querySelector('.gallery');
 const galleryBox = document.querySelector('.gallery-box');
 const loaderTop = document.querySelector('.loader-top');
 const loaderBottom = document.querySelector('.loader-bottom');
-const input = document.querySelector('input');
 const loadImg = document.querySelector('.load-image');
-const body = document.querySelector('body');
-const API_KEY = '41767782-13727767f44f3e84ebf7a04b0';
-const BASE_URL = 'https://pixabay.com';
 
 let page = 1;
 let q = 'sun';
@@ -41,7 +37,7 @@ async function onSubmit(event) {
   if (!q) {
     gallery.innerHTML = '';
     iziToast.info({
-      position: 'bottomRight',
+      position: 'topRight',
       message: 'Error enter any symbols',
     });
     loaderTop.style.display = 'none';
@@ -58,14 +54,14 @@ async function onSubmit(event) {
       gallery.innerHTML = renderImg(hits);
       lightbox.refresh();
       iziToast.success({
-        position: 'bottomRight',
+        position: 'topRight',
         message: `We found ${totalHits} photos`,
       });
       loadImg.style.display = 'block';
     } else {
       gallery.innerHTML = '';
       iziToast.error({
-        position: 'bottomRight',
+        position: 'topRight',
         message:
           'Sorry, there are no images matching your search query. Please try again!',
       });
@@ -82,7 +78,12 @@ async function onSubmit(event) {
   }
 }
 
+
+
 function searchImg(q, page) {
+    const API_KEY = '41767782-13727767f44f3e84ebf7a04b0';
+    const BASE_URL = 'https://pixabay.com';
+
   axios.defaults.baseURL = BASE_URL;
 
   return axios.get('/api/', {
@@ -138,7 +139,7 @@ async function loadMore(event) {
     if (page === totalPage) {
       loadImg.style.display = 'none';
       return iziToast.info({
-        position: 'bottomRight',
+        position: 'topRight',
         message: `We're sorry, but you've reached the end of search results.`,
       });
     }
